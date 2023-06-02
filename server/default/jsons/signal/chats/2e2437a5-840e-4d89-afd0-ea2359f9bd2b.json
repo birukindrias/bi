@@ -1,0 +1,51 @@
+{
+  "id": "2e2437a5-840e-4d89-afd0-ea2359f9bd2b",
+  "name": "Default Name",
+  "createdAt": "2022-07-18T19:23:12.337Z",
+  "messages": [
+      {
+        "id": "1",
+        "message": "Hi friends, just to be mindful: phishing is still a high threat. In particular targeted to the forensic team involved. Stay alert! Thanks.",
+        "read": false,
+        "own": false,
+        "triggerTimeInSeconds": 5
+      },
+      {
+        "id": "2",
+        "message": "Team, come back to me when you've found out which organization has hacked us.",
+        "read": false,
+        "own": false,
+        "triggerTimeInSeconds": 6,
+        "answers": [
+          {
+            "id": "1",
+            "message": "Sur5",
+            "trigger": "3",
+            "triggerAfterXseconds": 10
+          },
+          {
+            "id": "2",
+            "message": "Hive"
+          },
+          {
+            "id": "3",
+            "message": "Blabla"
+          }
+        ]
+      },
+      {
+        "id": "3",
+        "message": "Hi team, while working through DarkWeb traces we found this cyber investigator who found and anonymously published the source code [TWITTER] of the ransomware being used in our organization. That must be a major blow for Sur5, but possibly great news for us. Perhaps by reviewing that code, you can find traces to where they have transferred our data.",
+        "read": false,
+        "own": false
+      },
+      {
+        "id": "4",
+        "message": "Check your emails!",
+        "taskTrigger": {
+          "task": "READ_EMAIL",
+          "triggerTimeInSeconds": 20
+        }
+      }
+    ]
+}

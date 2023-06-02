@@ -1,0 +1,70 @@
+version: "3.8"
+services:
+    ransom_prod_backend:
+        container_name: ransom_prod_backend_container
+        image: rw_server_prod:1.0.0
+        build:
+            context: ./server
+            target: development
+            dockerfile: ./Dockerfile.prod
+        command: yarn start:dev
+        #command: ["wait-for-it.sh", "postgres:5432", "--","yarn", "start:dev"]
+        env_file:
+            - ../.env
+        #ports:
+            #- 4000:3000
+            #- 4001:9229
+        networks:
+            - database
+            - hunted_backend
+            - frontend
+            - backend
+        volumes:
+            #- ./server:/usr/src/app
+            #- /usr/src/app/node_modules
+            - ../uploads:/usr/src/app/uploads
+            - ../texts:/usr/src/app/texts
+        restart: unless-stopped
+
+    ransom_prod_frontend:
+        depends_on:
+            - ransom_prod_backend
+        container_name: ransom_prod_frontend_container
+        build:
+            context: ./client
+            target: production
+            dockerfile: ./Dockerfile.prod
+        # ports:
+        #     - 8082:3002
+        networks:
+            - frontend
+        #volumes:
+           # - ./client:/usr/src/app
+            #- /usr/src/app/node_modules
+        restart: unless-stopped
+    nginx:
+        build:
+            context: ./client/nginx
+        ports:
+            - 8001:80
+        depends_on:
+            - ransom_prod_frontend
+        volumes:
+            - /usr/local/directadmin/data/users/toolsdevhunted/domains/:/etc/cert/
+        networks:
+            - backend
+            - frontend
+        restart: unless-stopped
+networks:
+    database:
+        external: true
+        name: "database"
+    hunted_backend:
+        external: true
+        name: "hunted_backend"
+    backend:
+        driver: bridge
+    frontend:
+        driver: bridge
+
+

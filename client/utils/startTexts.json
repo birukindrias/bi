@@ -1,0 +1,8 @@
+{
+  "test": "ich bin ein test",
+  "en": {
+    "title": "Enter your game code",
+    "placeholder": "Game Code",
+    "button": "Start"
+  }
+}
